@@ -46,7 +46,7 @@ class BDJobs(Scraper):
     band_delay = 3
 
     def __init__(
-        self, proxies: list[str] | str | None = None, ca_cert: str | None = None
+        self, proxies: list[str] | str | None = None, ca_cert: str | None = None, rate_delay_min: float | None = None, rate_delay_max: float | None = None
     ):
         """
         Initializes BDJobsScraper with the BDJobs job search url
@@ -57,8 +57,10 @@ class BDJobs(Scraper):
             ca_cert=ca_cert,
             is_tls=False,
             has_retry=True,
-            delay=5,
+            backoff_factor=5,
             clear_cookies=True,
+            rate_delay_min=rate_delay_min,
+            rate_delay_max=rate_delay_max,
         )
         self.session.headers.update(headers)
         self.scraper_input = None

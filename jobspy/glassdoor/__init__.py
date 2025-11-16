@@ -34,13 +34,13 @@ log = create_logger("Glassdoor")
 
 class Glassdoor(Scraper):
     def __init__(
-        self, proxies: list[str] | str | None = None, ca_cert: str | None = None, user_agent: str | None = None
+        self, proxies: list[str] | str | None = None, ca_cert: str | None = None, user_agent: str | None = None, rate_delay_min: float | None = None, rate_delay_max: float | None = None
     ):
         """
         Initializes GlassdoorScraper with the Glassdoor job search url
         """
         site = Site(Site.GLASSDOOR)
-        super().__init__(site, proxies=proxies, ca_cert=ca_cert, user_agent=user_agent)
+        super().__init__(site, proxies=proxies, ca_cert=ca_cert, user_agent=user_agent, rate_delay_min=rate_delay_min, rate_delay_max=rate_delay_max)
 
         self.base_url = None
         self.country = None
