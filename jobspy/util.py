@@ -4,7 +4,6 @@ import logging
 import re
 from itertools import cycle
 import random
-import request
 import threading
 import time
 
