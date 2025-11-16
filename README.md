@@ -122,10 +122,10 @@ Optional
 |    path to CA Certificate file for proxies
 |
 ├── rate_delay_min (int | float)
-|    minimum rate delay between network requests (must be specified together with rate_delay_max)
+|    (optional) minimum rate delay between network requests (must be specified together with rate_delay_max)
 |
 ├── rate_delay_max (int | float)
-|    maximum rate delay between network requests (must be specified together with rate_delay_max)
+|    (optional) maximum rate delay between network requests (must be specified together with rate_delay_min)
 ```
 
 ```
