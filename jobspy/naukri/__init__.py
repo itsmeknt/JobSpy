@@ -44,7 +44,7 @@ class Naukri(Scraper):
     jobs_per_page = 20  
 
     def __init__(
-        self, proxies: list[str] | str | None = None, ca_cert: str | None = None, user_agent: str | None = None, rate_delay_min: float | None = None, rate_delay_max: float | None = None
+        self, proxies: list[str] | str | None = None, ca_cert: str | None = None, user_agent: str | None = None, rate_delay_min: int | float | None = None, rate_delay_max: int | float | None = None
     ):
         """
         Initializes NaukriScraper with the Naukri API URL

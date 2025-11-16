@@ -22,7 +22,7 @@ from jobspy.google.util import log, find_job_info_initial_page, find_job_info
 
 class Google(Scraper):
     def __init__(
-        self, proxies: list[str] | str | None = None, ca_cert: str | None = None, user_agent: str | None = None, rate_delay_min: float | None = None, rate_delay_max: float | None = None
+        self, proxies: list[str] | str | None = None, ca_cert: str | None = None, user_agent: str | None = None, rate_delay_min: int | float | None = None, rate_delay_max: int | float | None = None
     ):
         """
         Initializes Google Scraper with the Goodle jobs search url
