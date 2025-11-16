@@ -59,13 +59,13 @@ class RateLimiter:
     A thread-safe rate limiter to enforce a delay between operations.
 
     Args:
-        rate_delay_min (float | None):
+        rate_delay_min (int | float | None):
             The minimum time in seconds to wait since the last request.
-        rate_delay_max (float | None):
+        rate_delay_max (int | float | None):
             The maximum time in seconds to wait since the last request.
             If None, the delay will be fixed at rate_delay_min.
     """
-    def __init__(self, rate_delay_min: float | None, rate_delay_max: float | None):
+    def __init__(self, rate_delay_min: int | float | None, rate_delay_max: int | float | None):
         self.rate_delay_min = rate_delay_min
         self.rate_delay_max = rate_delay_max
         self.rate_delay_lock = threading.Lock()
@@ -79,7 +79,7 @@ class RateLimiter:
         the time elapsed since the last request and waits if necessary.
         """
 
-        if not isinstance(self.rate_delay_min, float) or not isinstance(self.rate_delay_max, float):
+        if not isinstance(self.rate_delay_min, (int, float)) or not isinstance(self.rate_delay_max, (int, float)):
             return
 
         delay_seconds = random.uniform(self.rate_delay_min, self.rate_delay_max)
@@ -97,7 +97,7 @@ class RateLimiter:
 
 
 class RequestsRotating(RotatingProxySession, requests.Session):
-    def __init__(self, proxies=None, has_retry=False, backoff_factor=1, clear_cookies=False, rate_delay_min: float | None = None, rate_delay_max: float | None = None):
+    def __init__(self, proxies=None, has_retry=False, backoff_factor=1, clear_cookies=False, rate_delay_min: int | float | None = None, rate_delay_max: int | float | None = None):
         RotatingProxySession.__init__(self, proxies=proxies)
         requests.Session.__init__(self)
         self.clear_cookies = clear_cookies
@@ -134,7 +134,7 @@ class RequestsRotating(RotatingProxySession, requests.Session):
 
 
 class TLSRotating(RotatingProxySession, tls_client.Session):
-    def __init__(self, proxies=None, rate_delay_min: float | None = None, rate_delay_max: float | None = None):
+    def __init__(self, proxies=None, rate_delay_min: int | float | None = None, rate_delay_max: int | float | None = None):
         RotatingProxySession.__init__(self, proxies=proxies)
         tls_client.Session.__init__(self, random_tls_extension_order=True)
         self.rate_limiter = RateLimiter(rate_delay_min, rate_delay_max)
@@ -161,8 +161,8 @@ def create_session(
     has_retry: bool = False,
     backoff_factor: int = 1,
     clear_cookies: bool = False,
-    rate_delay_min: float | None = None,
-    rate_delay_max: float | None = None,
+    rate_delay_min: int | float | None = None,
+    rate_delay_max: int | float | None = None,
 ) -> requests.Session:
     """
     Creates a requests session with optional tls, proxy, and retry settings.
