@@ -28,7 +28,7 @@ class Google(Scraper):
         Initializes Google Scraper with the Goodle jobs search url
         """
         site = Site(Site.GOOGLE)
-        super().__init__(site, proxies=proxies, ca_cert=ca_cert, rate_delay_min=rate_delay_min, rate_delay_max=rate_delay_max)
+        super().__init__(site, proxies=proxies, ca_cert=ca_cert)
 
         self.country = None
         self.session = None
@@ -37,6 +37,8 @@ class Google(Scraper):
         self.seen_urls = set()
         self.url = "https://www.google.com/search"
         self.jobs_url = "https://www.google.com/async/callback:550"
+        self.rate_delay_min = rate_delay_min
+        self.rate_delay_max = rate_delay_max
 
     def scrape(self, scraper_input: ScraperInput) -> JobResponse:
         """
@@ -48,7 +50,7 @@ class Google(Scraper):
         self.scraper_input.results_wanted = min(900, scraper_input.results_wanted)
 
         self.session = create_session(
-            proxies=self.proxies, ca_cert=self.ca_cert, is_tls=False, has_retry=True
+            proxies=self.proxies, ca_cert=self.ca_cert, is_tls=False, has_retry=True, rate_delay_min=self.rate_delay_min, rate_delay_max=self.rate_delay_max
         )
         forward_cursor, job_list = self._get_initial_cursor_and_jobs()
         if forward_cursor is None:

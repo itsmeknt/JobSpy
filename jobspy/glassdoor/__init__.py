@@ -40,7 +40,7 @@ class Glassdoor(Scraper):
         Initializes GlassdoorScraper with the Glassdoor job search url
         """
         site = Site(Site.GLASSDOOR)
-        super().__init__(site, proxies=proxies, ca_cert=ca_cert, user_agent=user_agent, rate_delay_min=rate_delay_min, rate_delay_max=rate_delay_max)
+        super().__init__(site, proxies=proxies, ca_cert=ca_cert, user_agent=user_agent)
 
         self.base_url = None
         self.country = None
@@ -48,6 +48,8 @@ class Glassdoor(Scraper):
         self.scraper_input = None
         self.jobs_per_page = 30
         self.max_pages = 30
+        self.rate_delay_min = rate_delay_min
+        self.rate_delay_max = rate_delay_max
         self.seen_urls = set()
 
     def scrape(self, scraper_input: ScraperInput) -> JobResponse:
@@ -61,7 +63,7 @@ class Glassdoor(Scraper):
         self.base_url = self.scraper_input.country.get_glassdoor_url()
 
         self.session = create_session(
-            proxies=self.proxies, ca_cert=self.ca_cert, has_retry=True
+            proxies=self.proxies, ca_cert=self.ca_cert, has_retry=True, rate_delay_min=self.rate_delay_min, rate_delay_max=self.rate_delay_max
         )
         token = self._get_csrf_token()
         headers["gd-csrf-token"] = token if token else fallback_token
