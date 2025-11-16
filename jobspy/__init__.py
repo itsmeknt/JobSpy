@@ -49,8 +49,8 @@ def scrape_jobs(
     enforce_annual_salary: bool = False,
     verbose: int = 0,
     user_agent: str = None,
-    rate_delay_min: float | None = None,
-    rate_delay_max: float | None = None,
+    rate_delay_min: int | float | None = None,
+    rate_delay_max: int | float | None = None,
     **kwargs,
 ) -> pd.DataFrame:
     """
