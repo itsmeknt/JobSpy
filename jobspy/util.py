@@ -63,7 +63,6 @@ class RateLimiter:
             The minimum time in seconds to wait since the last request.
         rate_delay_max (int | float | None):
             The maximum time in seconds to wait since the last request.
-            If None, the delay will be fixed at rate_delay_min.
     """
     def __init__(self, rate_delay_min: int | float | None, rate_delay_max: int | float | None):
         self.rate_delay_min = rate_delay_min
