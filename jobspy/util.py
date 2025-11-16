@@ -86,12 +86,9 @@ class RateLimiter:
         with self.rate_delay_lock:
             time_elapsed = time.monotonic() - self.last_request_time
             sleep_time = delay_seconds - time_elapsed
-
-            print(f"TEST: {self.last_request_time} / {time_elapsed} / {sleep_time}")
             if sleep_time > 0:
                 time.sleep(sleep_time)
 
-            # Update the last request time *after* any potential sleep
             self.last_request_time = time.monotonic()
 
 
