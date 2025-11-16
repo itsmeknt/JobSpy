@@ -105,7 +105,7 @@ def scrape_jobs(
 
     def scrape_site(site: Site) -> Tuple[str, JobResponse]:
         scraper_class = SCRAPER_MAPPING[site]
-        scraper = scraper_class(proxies=proxies, ca_cert=ca_cert, user_agent=user_agen, rate_delay_min=rate_delay_min, rate_delay_max=rate_delay_max)
+        scraper = scraper_class(proxies=proxies, ca_cert=ca_cert, user_agent=user_agent, rate_delay_min=rate_delay_min, rate_delay_max=rate_delay_max)
         scraped_data: JobResponse = scraper.scrape(scraper_input)
         cap_name = site.value.capitalize()
         site_name = "ZipRecruiter" if cap_name == "Zip_recruiter" else cap_name
