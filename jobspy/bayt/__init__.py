@@ -31,11 +31,13 @@ class BaytScraper(Scraper):
         self.scraper_input = None
         self.session = None
         self.country = "worldwide"
+        self.rate_delay_min = rate_delay_min
+        self.rate_delay_max = rate_delay_max
 
     def scrape(self, scraper_input: ScraperInput) -> JobResponse:
         self.scraper_input = scraper_input
         self.session = create_session(
-            proxies=self.proxies, ca_cert=self.ca_cert, is_tls=False, has_retry=True, rate_delay_min=rate_delay_min, rate_delay_max=rate_delay_max
+            proxies=self.proxies, ca_cert=self.ca_cert, is_tls=False, has_retry=True, rate_delay_min=self.rate_delay_min, rate_delay_max=self.rate_delay_max
         )
         job_list: list[JobPost] = []
         page = 1
